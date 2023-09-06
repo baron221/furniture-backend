@@ -20,7 +20,7 @@ mongoose.connect(connectionString,
         // console.log(goose)
         const app =require("./app");
         const server = http.createServer(app);
-        let PORT = process.env.PORT||3003;
+        let PORT = process.env.PORT||3001;
         server.listen(PORT , function(){
             console.log(`The server is running succesfully on port : ${PORT} , http://localhost:${PORT}`)
         });
