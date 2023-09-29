@@ -2,7 +2,7 @@ console.log("Web Server boshlash");
 const express = require("express");
 const app = express();
 const router = require("./router.js");
-// const router_bssr = require("./router_bssr.js");
+const router_bssr = require("./router_bssr.js");
 
 let session = require("express-session");
 const MongoDbStore = require("connect-mongodb-session")(session);
@@ -29,16 +29,16 @@ app.use(
   })
 );
 
-// app.use(function (req, res, next) {
-//   res.locals.member = req.session.member;
-//   next();
-// });
+app.use(function (req, res, next) {
+  res.locals.member = req.session.member;
+  next();
+});
 //3 BSSR -backend serverside render  VIEWS ga bogliq kodlar
 app.set("views", "views");
 app.set("view engine", "ejs");
 
 //4 Routing
-// app.use("/resto", router_bssr);
+app.use("/furnis", router_bssr);
 app.use("/", router);
 
 module.exports = app;

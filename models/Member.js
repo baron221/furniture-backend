@@ -1,6 +1,7 @@
 const Definer = require("../lib/mistake");
 const MemberModel = require("../schema/member.model");
 const assert = require("assert");
+const bcrypt = require("bcryptjs");
 
 class Member {
   constructor() {
@@ -9,8 +10,11 @@ class Member {
 
   async signupData(input) {
     try {
+      const salt = await bcrypt.genSalt();
+      input.mb_password = await bcrypt.hash(input.mb_password, salt);
       const new_member = new this.memberModel(input);
       let result;
+
       try {
         result = await new_member.save();
       } catch (mongo_err) {

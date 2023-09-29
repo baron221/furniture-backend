@@ -1,0 +1,271 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+.login_container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  animation: gradient 15s ease infinite;
+  -webkit-animation: gradient 15s ease infinite;
+  background-size: 200% 200%;
+}
+
+@-webkit-keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.login_container .login_frame {
+  position: relative;
+  width: 420px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 25px;
+}
+
+.login_frame .login_top {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login_top span {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 700;
+  font-size: 30px;
+  line-height: 34px;
+}
+
+.login_top p {
+  margin-top: 15px;
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+}
+
+.login_top div {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+}
+
+.login_frame .login_input_frame {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login_input_container {
+  position: relative;
+  margin-top: 15px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.login_input_container label {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.login_input_container input {
+  position: relative;
+  margin-top: 10px;
+  padding-left: 20px;
+  width: 100%;
+  height: 55px;
+  background: #f6f5f5;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+}
+
+.login_frame .login_btn {
+  position: relative;
+  margin-top: 25px;
+  width: 100%;
+  height: 70px;
+  background: #33a0ff;
+  border-radius: 10px;
+
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 800;
+  font-size: 24px;
+  line-height: 33px;
+  letter-spacing: -0.02em;
+  color: #ffffff;
+}
+
+/* SIGN UP */
+.login_frame .sign_input_frame {
+  position: relative;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.sign_input_frame .sign_up_frame {
+  position: relative;
+  margin-top: 15px;
+  width: 49%;
+  height: auto;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.sign_up_frame label {
+  font-family: "Poppins";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 18px;
+}
+
+.sign_up_frame input {
+  position: relative;
+  margin-top: 10px;
+  padding-left: 20px;
+  width: 100%;
+  height: 55px;
+  background: #f6f5f5;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+}
+
+.media-frame {
+  position: relative;
+  margin-top: 15px;
+  width: 100%;
+  height: 250px;
+
+  display: flex;
+  flex: row;
+  justify-content: space-between;
+}
+
+.media-frame .upload_img_frame {
+  position: relative;
+  width: 275px;
+  height: 93%;
+  display: flex;
+  border-radius: 15px;
+}
+
+.media-frame .upload_container {
+  position: relative;
+  margin-left: 30px;
+  width: 75%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.media_text {
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 18px;
+  color: #140342;
+}
+
+.filebox {
+  margin-top: 25px;
+  display: flex;
+}
+
+.filebox input[type="file"] {
+  position: relative;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.filebox label {
+  width: 137px;
+  height: 55px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #6a7a99;
+  border-radius: 0px 8px 8px 0px;
+font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+  color: #ffffff;
+}
+
+.filebox .upload-name {
+  position: relative;
+  padding: 20px;
+  width: 85%;
+  height: 55px;
+
+  display: flex;
+  background: #dddddd;
+
+  border: 1px solid #dddddd;
+  border-radius: 8px 0px 0px 8px;
+}
+
+.thumbnail_desc {
+  margin-top: 25px;
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+  color: #3532c2;
+}

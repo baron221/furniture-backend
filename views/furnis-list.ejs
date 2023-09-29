@@ -1,0 +1,11 @@
+<%- include('includes/header') %>
+<body>
+  <h1>My furnis page</h1>
+  <% if(!member) { %>
+  <h2>Siz authenticated emassiz</h2>
+  <% } else { %>
+  <h2>Siz authenticated bo'lgansiz</h2>
+  <% } %>
+</body>
+
+<%- include('includes/footer') %>

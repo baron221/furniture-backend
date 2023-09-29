@@ -1,0 +1,64 @@
+.restaurant_menu_frame {
+  position: relative;
+  padding-bottom: 80px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #2c261e;
+}
+
+.restaurant_menu_frame .restaurant_container {
+  position: relative;
+  margin-top: 100px;
+  width: 1320px;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.restaurant_container .dishs_table {
+  position: relative;
+  width: 100%;
+  height: auto;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.spec_select {
+  position: relative;
+  padding: 0px 7px;
+  height: 27px;
+  background: #ffffff;
+  border: 1px solid #dddddd;
+  border-radius: 8px;
+  font-family: "GT Walsheim Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 26px;
+  color: #4f547b;
+}
+
+.dish_container {
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  height: auto;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+}
+
+.long_input {
+  position: relative;
+  margin-top: 25px;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+}
