@@ -70,3 +70,11 @@ furnisController.logout = (req, res) => {
   console.log("GET cont.logout");
   res.send("logout sahifasidasiz");
 };
+ 
+furnisController.checkSession = (req,res) =>{
+   if(req.session?.member){
+    res.json({state: 'succeed', data:req.session.member})
+   }else{
+    res.json({state:'fail' ,message:'You are not authenticated'})
+   }
+}
