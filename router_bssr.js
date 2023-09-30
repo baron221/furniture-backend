@@ -1,6 +1,7 @@
 const express = require("express");
 const router_bssr = express.Router();
 const furnisController = require("./controllers/furnisController");
+const productController = require("./controllers/productController");
 
 /************************************************
  *                       BSSR EJS                               *
@@ -16,5 +17,9 @@ router_bssr.post("/login", furnisController.loginProcess);
 router_bssr.get("/logout", furnisController.logout);
 router_bssr.get("/check-me", furnisController.checkSession);
 router_bssr.get("/products/list", furnisController.getMyFurnisData);
+
+router_bssr.post("/products/create", furnisController.validateAuthRestaurant,
+ productController.addNewProduct);
+router_bssr.post("products/edit/:id", productController.updateChosenProduct);
 
 module.exports = router_bssr;

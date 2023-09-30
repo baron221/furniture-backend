@@ -1,4 +1,5 @@
 const Member = require("../models/Member");
+const Product = require("../models/Product");
 
 let furnisController = module.exports;
 
@@ -70,8 +71,15 @@ furnisController.logout = (req, res) => {
   console.log("GET cont.logout");
   res.send("logout sahifasidasiz");
 };
+
+furnisController.validateAuthRestaurant = (req , res,next) => {
+    if(req.session?.member?.mb_type === "MARKET"){
+        req.member = req.session.member;
+        next()
+    }else res.json({state:"fail" , error :"only authenticated members with market type"})
+}
  
-furnisController.checkSession = (req,res) =>{
+furnisController.checkSession = (req,res ) =>{
    if(req.session?.member){
     res.json({state: 'succeed', data:req.session.member})
    }else{
