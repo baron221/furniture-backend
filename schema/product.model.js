@@ -2,7 +2,7 @@ const mongoose = require("mongoose")
 const {
   product_collection_enums,
   product_status_enums,
-//   product_size_enums,
+  product_size_enums,
 //   product_volume_enums
 } = require("../lib/config")
 
@@ -44,18 +44,18 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true
     },
-    // product_size: {
-    //   type: String,
-    //   default: "normal",
-    //   required: function () {
-    //     const sized_list = ["dish", " salad", "dessert"]
-    //     return sized_list.includes(this.product_collection)
-    //   },
-    //   enum: {
-    //     values: product_size_enums,
-    //     message: "{VALUE} is not among permitted enum values"
-    //   }
-    // },
+    product_size: {
+      type: String,
+      default: "normal",
+      required: function () {
+        const sized_list = ["dish", " salad", "dessert"]
+        return sized_list.includes(this.product_collection)
+      },
+      enum: {
+        values: product_size_enums,
+        message: "{VALUE} is not among permitted enum values"
+      }
+    },
     // product_volume: {
     //   type: String,
     //   default: 1,
@@ -96,7 +96,7 @@ const productSchema = new mongoose.Schema(
 )
 
 productSchema.index(
-  {market_mb_id:1, product_name:1},
+  {market_mb_id:1, product_name:1,product_size:1},
   {unique:true}
   );
 
