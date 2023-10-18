@@ -2,7 +2,7 @@ const express = require("express");
 const router_bssr = express.Router();
 const furnisController = require("./controllers/furnisController");
 const productController = require("./controllers/productController");
-const uploader_product = require("./utils/upload-multer")("products")
+const uploader_product = require("./utils/upload-multer")("products");
 
 /************************************************
  *                       BSSR EJS                               *
@@ -22,9 +22,13 @@ router_bssr.get("/products/list", furnisController.getMyFurnisData);
 router_bssr.post(
   "/products/create",
   furnisController.validateAuthRestaurant,
-  uploader_product.array('product_images',5),
+  uploader_product.array("product_images", 5),
   productController.addNewProduct
 );
-router_bssr.post("products/edit/:id", productController.updateChosenProduct);
+router_bssr.post(
+  "/products/edit/:id",
+  furnisController.validateAuthRestaurant,
+  productController.updateChosenProduct
+);
 
 module.exports = router_bssr;
