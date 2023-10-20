@@ -4,7 +4,8 @@
   <% if(!member) { %>
   <h2>Siz authenticated emassiz</h2>
   <% } else { %>
-  <h2>Siz authenticated bo'lgansiz</h2>
+  <h2>Siz authenticated bo'lgansiz va sizning nickingiz <%= member.mb_nick%>
+  <p>sizning telefoningiz <%= member.mb_phone%></p></h2>
   <% } %>
 </body>
 

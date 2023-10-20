@@ -6,7 +6,10 @@ let furnisController = module.exports;
 furnisController.getMyFurnisData = async (req, res) => {
   try {
     console.log("GET:cont/getMyFurnisData");
-    res.render("furnis-list");
+    const product = new Product();
+    const data = await product.getAllProductsDataFurnis(res.locals.member)
+    res.render("furnis-list",{market_data:data});
+    console.log("furnis-list")
   } catch (err) {
     console.log(`ERROR , cont/getSignUpMyFurnis , ${err.message}`);
     res.json({ state: "fail", message: err.message });

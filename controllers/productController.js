@@ -27,7 +27,7 @@ productController.addNewProduct = async (req, res) => {
 
     const result = await product.addNewProductData(data, req.member);
     const html = `<script>alert(new furniture added successfully</script>
-    window.location.replace('/furnis/products/menu')`;
+    window.location.replace('/furnis/products/list')`;
     res.end(html);
   } catch (err) {
     console.log(`Error,cont/addNewProduct,${err.message}`);
