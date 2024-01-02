@@ -5,10 +5,10 @@ const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");
 
 /************************************************
- *                       BSSR EJS                               *
+ **                       BSSR EJS             **                    
  ************************************************/
 
-// router.get("/",memberController.home);
+router_bssr.get("/", furnisController.home);
 router_bssr.get("/signup", furnisController.getSignUpMyFurnis);
 router_bssr.post("/signup", furnisController.signupProcess);
 

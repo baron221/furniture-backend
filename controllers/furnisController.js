@@ -3,6 +3,16 @@ const Product = require("../models/Product");
 
 let furnisController = module.exports;
 
+furnisController.home = async (req, res) => {
+  try {
+    console.log("GET:cont/home");
+    res.render('home-page')
+  } catch (err) {
+    console.log(`ERROR , cont/home , ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
 furnisController.getMyFurnisData = async (req, res) => {
   try {
     console.log("GET:cont/getMyFurnisData");
