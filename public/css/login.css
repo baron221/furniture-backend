@@ -12,7 +12,7 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background: linear-gradient(-45deg, #021a69, #ec4909, #5e91a5, #0ceafa);
   animation: gradient 15s ease infinite;
   -webkit-animation: gradient 15s ease infinite;
   background-size: 200% 200%;
@@ -127,7 +127,7 @@ body {
   margin-top: 25px;
   width: 100%;
   height: 70px;
-  background: #33a0ff;
+  background: #f33f08;
   border-radius: 10px;
 
   font-family: "Poppins";
@@ -267,5 +267,5 @@ font-family: "GT Walsheim Pro";
   font-weight: 400;
   font-size: 15px;
   line-height: 26px;
-  color: #3532c2;
+  color: #f8871d;
 }
