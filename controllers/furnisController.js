@@ -91,8 +91,17 @@ furnisController.getLoginUpMyFurnis = async (req, res) => {
 };
 
 furnisController.logout = (req, res) => {
-  console.log("GET cont.logout");
-  res.send("logout sahifasidasiz");
+
+  try{
+    console.log("GET cont.logout");
+    req.session.destroy(function(){
+      res.redirect("/furnis");
+    })
+
+  }catch(err){
+    console.log(`ERROR , cont/getLogoutMyFurnis , ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
 };
 
 furnisController.validateAuthRestaurant = (req , res,next) => {
