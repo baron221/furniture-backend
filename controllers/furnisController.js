@@ -1,5 +1,9 @@
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const Definer = require("../lib/mistake");
+
+const assert = require("assert");
+
 
 let furnisController = module.exports;
 
@@ -39,11 +43,17 @@ furnisController.getSignUpMyFurnis = async (req, res) => {
 furnisController.signupProcess = async (req, res) => {
   try {
     console.log("POST cont.signup");
-    const data = req.body;
-    const member = new Member();
-    const new_member = await member.signupData(data);
+    assert(req.file , Definer.general_err3);
 
-    req.session.member = new_member;
+    let new_member = req.body;
+    new_member.mb_type="MARKET";
+    new_member.mb_image = req.file.path;
+
+    const member = new Member();
+    const result = await member.signupData(new_member);
+    assert(req.file , Definer.general_err1);
+
+    req.session.member = result;
     res.redirect("/furnis/products/list");
 
     // res.json({state : 'succeed' , data:new_member})

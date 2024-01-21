@@ -6,7 +6,7 @@
   <form
     onsubmit="return validatedSignUpForm()"
     class="login_container"
-    action="/furnis/sign-up"
+    action="/furnis/signup"
     method="POST"
     enctype="multipart/form-data"
   >
@@ -90,7 +90,7 @@
               <input
                 type="file"
                 id="input_file"
-                name="restaurant_img"
+                name="furnis_img"
                 placeholder="Confirm Password"
                 class="upload-hidden form-control-file restaurant_img"
               />
@@ -110,6 +110,8 @@
     </div>
   </form>
 </body>
+
+
 <script>
   $(function () {
     let fileTarget = $(".filebox .upload-hidden");
@@ -142,7 +144,7 @@
     const mb_phone = $(".mb_phone").val();
     const mb_password = $(".mb_password").val();
     const mb_confirm_password = $(".mb_confirm_password").val();
-    const restaurant_img = $(".restaurant_img").get(0).files[0] ?? null;
+    const furnis_img = $(".furnis_img").get(0).files[0] ?? null;
     if (
       mb_nick == "" ||
       mb_phone == "" ||
@@ -154,7 +156,7 @@
       alert("Iltimos passwordni togri kiriting");
     }
 
-    if (!restaurant_img) {
+    if (!furnis_img) {
       alert("Iltimos rasmni yuklang!");
     }
     return true; // test qilganda hamisha false bulmasa backendga zapros yuboradi
