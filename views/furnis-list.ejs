@@ -1,12 +1,237 @@
 <%- include('includes/header') %>
+<link rel="stylesheet" type="text/css" href="/css/menu.css" />
+
 <body>
-  <h1>My furnis page</h1>
-  <% if(!member) { %>
-  <h2>Siz authenticated emassiz</h2>
-  <% } else { %>
-  <h2>Siz authenticated bo'lgansiz va sizning nickingiz <%= member.mb_nick%>
-  <p>sizning telefoningiz <%= member.mb_phone%></p></h2>
-  <% } %>
+  <div id="main_container">
+    <div class="group_name">
+      <ul class="nav justify-content-center">
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link active" href="/furnis">Home</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link" href="/furnis/products/menu">Furnis</a>
+        </li>
+        <li class="nav-item" style="cursor: pointer">
+          <a class="nav-link" href="/furnis/logout">Logout</a>
+        </li>
+      </ul>
+    </div>
+    
+    <div class="restaurant_menu_frame">
+      <div class="restaurant_container">
+        <div class="dishs_table">
+          <span class="new_dish_txt"><%= member.mb_nick.toUpperCase()%> Products List</span>
+              
+          <table class="table table-bordered table-hover">
+            <thead class="thead-light">
+              <th scope="col"> Number</th>
+              <th scope="col"> Product Name </th>
+              <th scope="col"> Product Type</th>
+              <th scope="col"> Product price</th>
+              <th scope="col"> Remaining Product</th>
+              <th scope="col"> Product status</th>
+            </thead>
+
+            <% market_data.map((value,key)=>{ %>
+            <tbody style="background: white">
+              <td><%= key + 1 %></td>
+              <td><%= value.product_name %></td>
+              <td><%= value.product_collection %></td>
+              <td><%= value.product_price %></td>
+              <td><%= value.product_left_cnt %></td>
+              <td>
+                <select class="spec_select new_product_status" id="<%= value._id%>">
+                  <option value="PAUSED" <%= value.product_status === 'PAUSED' ? 'selected' : '' %> > PAUSED</option>
+                  <option value="PROCESS" <%= value.product_status === 'PROCESS' ? 'selected' : '' %> > PROCESS</option>
+
+                </select>
+              </td>
+            </tbody>
+            <% }); %>
+          </table>
+
+          <div class="long_input" style="align-items: flex-end; margin-bottom: 25px;">
+        <button class="btn btn-primary hiding_btn">Add Product</button>
+        </div>
+
+        </div>
+
+      <form onsubmit="return validateForm()" action="/furnis/products/create" method="POST" 
+         class="dish_container" enctype="multipart/form-data">
+
+        <div class="long_input" style="display: flex; align-items: center">
+          <span class="new_dish_txt">New Product</span>
+        </div>
+
+        <div>
+            <div class="long_input">
+                <label>Product Name</label>
+                <input type="text" placeholder="Taom Nomi" name="product_name" class="product_name">
+            </div>
+            <input name="product_status" value="PAUSED" class="product_status" hidden>
+        </div>
+
+            <div class="half_input_frame">
+                <div class="half_input">
+                    <label>Product Price</label>
+                <input type="number" placeholder="Taom Narxi" name="product_price" class="product_price">
+                </div>
+                <div class="half_input">
+                    <label>Remaining of product</label>
+                <input type="number" placeholder="Taom Mavjud Miqdori" name="product_left_cnt" class="product_left_cnt">
+                </div>
+            </div>
+  
+        <div class="half_input_frame">
+            
+        <div class="half_input">
+        <label>Product type</label>
+        <select class="product_collection" name="product_collection">
+            <option value="furniture" selected>Furniture</option>
+            <option value="sofa" >Sofa</option>
+            <option value="mirror" >Mirror</option>
+            <option value="chair" >chair</option>
+            <option value="est" >others</option>
+        </select>
+        </div>
+
+        <!-- <div class="half_input" id="product_size">
+            <label>Product Size</label>
+            <select class="product_size" name="product_size">
+                <option value="small" >Small</option>
+                <option value="normal" selected>O'rtacha</option>
+                <option value="large" >Yirik</option>
+                <option value="set" >Set</option>
+            </select>
+        </div>      -->
+<!-- 
+        <div class="half_input" id="product_volume" style="display:none;">
+            <label>Ichimlik Hajmi</label>
+            <select class="product_volume" name="product_volume">
+                <option value="0.5" >0.5 litr</option>
+                <option value="1" selected>1 litr</option>
+                <option value="1.2" >1.2 litr</option>
+                <option value="1.5" >1.5 litr</option>
+                <option value="2" >2 litr</option>
+            </select>
+        </div>  -->
+      </div>
+
+      <div class="long_input">
+        <label>About Product</label>
+        <textarea name="product_description" class="product_description"></textarea>
+      </div>
+
+      <div class="img_frame">
+        <label>Prodcut Images</label>
+        <div class="media-frame">
+            <div class="upload_img_box">
+            <img src="/images/upload.svg" class="1" id="image_section_1">
+            <input type="file" id="file" name="product_images" class="image_one"
+            onchange="previewFileHandler(this,1)">
+          </div>
+            <div class="upload_img_box">
+                <img src="/images/upload.svg" class="2" id="image_section_2">
+                <input type="file" id="file" name="product_images" class="image_two"
+                onchange="previewFileHandler(this,2)">
+                </div>
+                <div class="upload_img_box">
+                    <img src="/images/upload.svg" class="3" id="image_section_3">
+                    <input type="file" id="file" name="product_images" class="image_three"
+                    onchange="previewFileHandler(this,3)">
+                    </div>
+                    <div class="upload_img_box">
+                        <img src="/images/upload.svg" class="4" id="image_section_4">
+                        <input type="file" id="file" name="product_images" class="image_four"
+                        onchange="previewFileHandler(this,4)">
+                        </div>
+                        <div class="upload_img_box">
+                            <img src="/images/upload.svg" class="5" id="image_section_5">
+                            <input type="file" id="file" name="product_images" class="image_five"
+                            onchange="previewFileHandler(this,5)">
+                            </div>
+                            <input value="<% member._id %>" name="restaurant_id" class="restaurant_id" hidden>
+                    </div>
+                </div>
+
+                <div class="long_input" style="align-items: flex-end; margin-bottom: 25px;">
+                <button type="submit" class="btn btn-primary" id="create_product">Chop Etish</button>
+                </div>
+
+
+            </form>
+
+          </div>
+        </div>
+    </div>
+    <script>
+        $(function() {
+
+            
+                try{
+                    const response = await axios.post(
+                        `/furnis/products/edit/${id}`,
+                        {id: id, product_status: product_status}
+
+                    );
+
+                    const result = response.data;
+                    console.log("result:", result);
+
+                    if(result.state === 'success') {
+                        alert('success');
+                        location.reload();
+                    } else {
+                        alert(result.message);
+                    }
+
+
+                } catch(err) {
+                    console.log('updateChosenProduct err:', err);
+                }
+            })
+        });
+
+        function validateForm() {
+            const restaurant_mb_id = $(".furnis_mb_id").val(),
+             product_name = $(".product_name").val(),
+             product_price = $(".product_price").val(),
+             product_left_cnt = $(".product_left_cnt").val(),
+             product_collection = $(".product_collection").val(),
+             product_description = $(".product_description").val(),
+             product_status = $(".product_status").val();
+
+             if(market_mb_id == '' || product_name == '' || product_price == '' ||
+             product_left_cnt == '' || product_collection == '' || product_description == '' ||
+             product_status == '') {
+                alert('Iltimos hamma malumotlarni kiriting!');
+                return false;
+                
+             } else return true;
+            
+        }
+
+        function previewFileHandler(input, order) {
+            console.log(input);
+            const image_class_name = input.className;
+            const file = $(`.${image_class_name}`).get(0).files[0],
+            fileType = file['type'],
+            validImageTypes = ['image/jpg', 'image/jpeg', 'image/png'];
+
+            if(!validImageTypes.includes(fileType)) {
+                alert('Iltimos ruhsat etilgan formatdagi rasmlarni yuklang! (jpg,jpeg,png)');
+            } else {
+                if(file) {
+                    let reader = new FileReader();
+                    reader.onload = function() {
+                        $(`#image_section_${order}`).attr('src', reader.result);
+                    }
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+    </script>
 </body>
 
 <%- include('includes/footer') %>

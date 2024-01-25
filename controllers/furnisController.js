@@ -26,7 +26,7 @@ furnisController.getMyFurnisData = async (req, res) => {
     res.render("furnis-list", {market_data:data});
   } catch (err) {
     console.log(`ERROR , cont/getSignUpMyFurnis , ${err.message}`);
-    res.json({ state: "fail", message: err.message });
+    res.redirect("/resto");
   }
 };
 
