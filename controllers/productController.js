@@ -26,8 +26,9 @@ productController.addNewProduct = async (req, res) => {
     });
 
     const result = await product.addNewProductData(data, req.member);
-    const html = `<script>alert(new furniture added successfully</script>
-    window.location.replace('/furnis/products/list')`;
+    const html = `<script>alert('new furniture added successfully')
+    window.location.replace('/furnis/products/list');
+    </script>`
     res.end(html);
   } catch (err) {
     console.log(`Error,cont/addNewProduct,${err.message}`);
@@ -39,10 +40,14 @@ productController.updateChosenProduct = async (req, res) => {
     console.log(`POST: cont/updateChosenProduct `);
     const product = new Product();
     const id = req.params.id;
-    const result = await product.updateChosenProductData(id, req.body, req.member._id);
+    const result = await product.updateChosenProductData(
+      id,
+      req.body,
+      req.member._id
+    );
     await res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`Error,cont/updateChosenProduct,${err.message}`);
-    res.json({state:"fail" , message:err.message})
+    res.json({ state: "fail", message: err.message });
   }
 };
