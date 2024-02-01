@@ -12,7 +12,7 @@ const uploader_members = require("./utils/upload-multer")("members");
 
 router_bssr.get("/", furnisController.home);
 router_bssr.get("/signup", furnisController.getSignUpMyFurnis);
-router_bssr.post("/signup",uploader_members.single('furnis_img'), furnisController.signupProcess);
+router_bssr.post("/signup", uploader_members.single('furnis_img'), furnisController.signupProcess);
 
 router_bssr.get("/login", furnisController.getLoginUpMyFurnis);
 router_bssr.post("/login", furnisController.loginProcess);
@@ -27,10 +27,17 @@ router_bssr.post(
   uploader_product.array("product_images", 5),
   productController.addNewProduct
 );
+
 router_bssr.post(
   "/products/edit/:id",
   furnisController.validateAuthRestaurant,
   productController.updateChosenProduct
+);
+
+router_bssr.get(
+  "/all-markets",
+  furnisController.validateAdmin,
+  furnisController.getAllMarkets
 );
 
 module.exports = router_bssr;

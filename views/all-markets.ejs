@@ -1,0 +1,101 @@
+<%- include("includes/header") %>
+    <link rel="stylesheet" type="text/css" href="/css/menu.css">
+
+    <body>
+        <div id="main_container">
+            <div class="group_name">
+                <ul class="nav justify-content-center">
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link" href="/furnis">Home</a>
+                    </li>
+
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link" href="/furnis/all-markets">All Markets</a>
+                    </li>
+
+                    <li class="nav-item" style="cursor: pointer">
+                        <a class="nav-link" href="/furnis/logout">Logout</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="restaurant_menu_frame">
+                <div class="restaurant_container">
+                    <div class="resto_table">
+                        <span class="new_dish_txt">
+                            All Markets list
+                        </span>
+                        <table class="table table-bordered table-hover">
+
+                            <thead class="thead-light">
+                                <tr class="thead-light">
+                                    <th scope="col"> T/r </th>
+                                    <th scope="col"> Name of Market </th>
+                                    <th scope="col"> Phone Number of Market </th>
+                                    <th scope="col"> Best Markets</th>
+                                    <th scope="col"> Status of Market </th>
+                                </tr>
+                            </thead>
+
+                            <% furnis_data.map(function(value,key){ %>
+                                <tbody style="background: white;">
+                                    <td><%= key + 1 %></td>
+                                    <td><%= value.mb_nick %></td>
+                                    <td><%= value.mb_phone %></td>
+                                    <td style="width: 13%">
+                                    <label class="switch">
+                                        <input type="checkbox" class="mb_top" id="<%= value._id %>"
+                                        <%= value.mb_top === "Y" ? 'checked' : "" %> />
+                                        <span class="slider round"></span>
+                                    </label>
+                                    </td>
+                                    <td style="width: 13%;">
+                                    <select class="spec_select mb_status" id="<%= value._id %>">
+                                        <option value="ONPAUSE" <%= value.mb_status === "ONPAUSE" ? 'selected' : "" %> </option>ONPAUSE</option>
+                                        <option value="ACTIVE" <%= value.mb_status === "ACTIVE" ? 'selected' : "" %> </option>ACTIVE</option>
+                                        <option value="DELETED" <%= value.mb_status === "DELETED" ? 'selected' : "" %> </option>DELETED</option>
+                                    </select>
+                                </td>
+                                </tbody>
+                                <% }); %>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(function (){
+                //manipulate restaurants according to top or non-top features
+                $(".mb_top").on("change", function(e){
+                    // alert("Bosildim")
+                    const id = e.target.id;
+                    const mb_top = e.target.checked ? "Y" : "N";
+
+                   axios.post("/resto/all-restaurant/edit", {id: id, mb_top: mb_top})
+                   .then(response => {
+                    const result = response.data;
+                    if(result.state === "success") alert("successfully updated")
+                    else alert(result.message)
+                })
+                   .catch(err => console.log(err))
+
+                });
+
+                $(".mb_status").on("change", function(e){
+                    // alert("Bosildim")
+                    const id = e.target.id;
+                    const mb_status = $(`#${id}.mb_status`).val()
+
+                   axios.post("/resto/all-restaurant/edit", {id: id, mb_status: mb_status})
+                   .then(response => {
+                    const result = response.data;
+                    if(result.state === "success") alert("successfully updated")
+                    else alert(result.message)
+                })
+                   .catch(err => console.log(err))
+
+                })
+
+            })
+        </script>
+    </body>
+    <%- include("includes/footer") %>

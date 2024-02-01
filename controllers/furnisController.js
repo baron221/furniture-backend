@@ -1,5 +1,6 @@
 const Member = require("../models/Member");
 const Product = require("../models/Product");
+const Market = require("../models/Market")
 const Definer = require("../lib/mistake");
 
 const assert = require("assert");
@@ -117,4 +118,43 @@ furnisController.checkSession = (req,res ) =>{
    }else{
     res.json({state:'fail' ,message:'You are not authenticated'})
    }
+}
+
+furnisController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member
+    next()
+  } else {
+    const html = `<script>
+   alert("ADMIN page permission denied")
+   window.location.replace("/furnis")
+   </script>`
+    res.end(html)
+  }
+}
+
+furnisController.getAllMarkets = async (req, res) => {
+  try {
+    console.log("Post: cont/getAllMarkets")
+
+    const furnis = new Market()
+    const furnis_data = await furnis.getAllFurnisData()
+
+    res.render("all-markets", { furnis_data: furnis_data })
+  } catch (err) {
+    console.log(`Error, cont/getAllRestaurants, ${err.message}`)
+    res.json({ state: "fail", message: err.message })
+  }
+}
+
+furnisController.updaterestaurantByAdmin = async (req, res) => {
+  try {
+    console.log("Post: cont/updaterestaurantByAdmin")
+    const furnis = new Market()
+    const result = await furnis.updatemarketByAdminData(req.body)
+    await res.json({ state: "success", data: result })
+  } catch (err) {
+    console.log(`Error, cont/updatemarketByAdminData, ${err.message}`)
+    res.json({ state: "fail", message: err.message })
+  }
 }
