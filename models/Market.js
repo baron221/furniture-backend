@@ -66,7 +66,7 @@ class Market {
   }
 
 
-  async getAllFurnisData() {
+  async getAllMarketData() {
     try {
       const result = await this.memberModel
         .find({

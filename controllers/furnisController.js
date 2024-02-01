@@ -138,7 +138,7 @@ furnisController.getAllMarkets = async (req, res) => {
     console.log("Post: cont/getAllMarkets")
 
     const furnis = new Market()
-    const furnis_data = await furnis.getAllFurnisData()
+    const furnis_data = await furnis.getAllMarketData()
 
     res.render("all-markets", { furnis_data: furnis_data })
   } catch (err) {
