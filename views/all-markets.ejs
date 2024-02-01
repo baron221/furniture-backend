@@ -66,11 +66,10 @@
             $(function (){
                 //manipulate restaurants according to top or non-top features
                 $(".mb_top").on("change", function(e){
-                    // alert("Bosildim")
                     const id = e.target.id;
                     const mb_top = e.target.checked ? "Y" : "N";
 
-                   axios.post("/resto/all-restaurant/edit", {id: id, mb_top: mb_top})
+                   axios.post("/furnis/all-markets/edit", {id: id, mb_top: mb_top})
                    .then(response => {
                     const result = response.data;
                     if(result.state === "success") alert("successfully updated")
@@ -85,7 +84,7 @@
                     const id = e.target.id;
                     const mb_status = $(`#${id}.mb_status`).val()
 
-                   axios.post("/resto/all-restaurant/edit", {id: id, mb_status: mb_status})
+                   axios.post("/furnis/all-markets/edit", {id: id, mb_status: mb_status})
                    .then(response => {
                     const result = response.data;
                     if(result.state === "success") alert("successfully updated")

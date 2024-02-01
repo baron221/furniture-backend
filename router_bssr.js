@@ -40,4 +40,8 @@ router_bssr.get(
   furnisController.getAllMarkets
 );
 
+router_bssr.post("/all-markets/edit",
+furnisController.validateAdmin,
+furnisController.updatemarketByAdmin
+)
 module.exports = router_bssr;

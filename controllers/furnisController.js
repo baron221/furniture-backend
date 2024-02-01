@@ -27,7 +27,7 @@ furnisController.getMyFurnisData = async (req, res) => {
     res.render("furnis-list", {market_data:data});
   } catch (err) {
     console.log(`ERROR , cont/getSignUpMyFurnis , ${err.message}`);
-    res.redirect("/resto");
+    res.redirect("/furnis");
   }
 };
 
@@ -52,7 +52,7 @@ furnisController.signupProcess = async (req, res) => {
 
     const member = new Member();
     const result = await member.signupData(new_member);
-    assert(req.file , Definer.general_err1);
+    assert(result , Definer.general_err1);
 
     req.session.member = result;
     res.redirect("/furnis/products/list");
@@ -147,7 +147,7 @@ furnisController.getAllMarkets = async (req, res) => {
   }
 }
 
-furnisController.updaterestaurantByAdmin = async (req, res) => {
+furnisController.updatemarketByAdmin = async (req, res) => {
   try {
     console.log("Post: cont/updaterestaurantByAdmin")
     const furnis = new Market()
