@@ -14,7 +14,7 @@ router.get("/logout", memberController.logout);
 
 //boshqa routerlar
 router.get("/menu", (req, res) => {
-  res.send("Menu sahifadasiz");
+  res.send("You are in menu page");
 });
 
 router.get("/community", (req, res) => {

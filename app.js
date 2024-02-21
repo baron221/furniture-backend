@@ -5,6 +5,7 @@ const router = require("./router.js");
 const router_bssr = require("./router_bssr.js");
 
 let session = require("express-session");
+const cookieParser = require("cookie-parser");
 const MongoDbStore = require("connect-mongodb-session")(session);
 const store = new MongoDbStore({
   uri: process.env.MONGO_URL,
@@ -15,7 +16,7 @@ const store = new MongoDbStore({
 app.use(express.static("public"));
 app.use(express.json()); // kirib kelyatgan json formatdagi data ni objectga ogiradi
 app.use(express.urlencoded({ extended: true })); //html forumdan request qiladi
-
+app.use(cookieParser());
 //2 Session
 app.use(
   session({
