@@ -49,7 +49,8 @@ memberController.login = async (req, res) => {
 
 memberController.logout = (req, res) => {
   console.log("GET cont.logout");
-  res.send("logout sahifasidasiz");
+  res.cookie('access_token' ,null ,{maxAge:0,httpOnly:true})
+  res.json({ state: "succeed", data: 'logout successfully!' });
 };
 
 memberController.createToken = (result) => {
@@ -87,3 +88,29 @@ memberController.checkMyAuthentication = (req, res) => {
     throw err;
   }
 };
+memberController.getChosenMember = async (req,res) =>{
+    try{
+        console.log("GET cont/ getChosenMember");
+        const id =req.params.id;
+        const member = new Member();
+        const result = await member.getChosenMemberData(req.member, id);
+        res.json({ state: "succeed", data: result });
+
+
+    }catch(err){
+        console.log(`Error,cont/getchosenMember,${err.message}`);
+        res.json({ state: "fail", message: err.message });    }
+}
+
+memberController.retrieveAuthMember = (req,res,next) => {
+    try{
+        const token = req.cookies['access_token'];
+        req.member = token ? jwt.verify(token, process.env.SECRET_TOKEN) :null;
+        next();
+    }catch(err){
+        console.log(`ERROR , cont/retrieveAuthMember ${err.message}`);
+        next();
+
+    }
+
+}
