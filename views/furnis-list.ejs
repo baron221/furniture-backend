@@ -9,7 +9,7 @@
             <a class="nav-link active" href="/furnis">Home</a>
           </li>
           <li class="nav-item" style="cursor: pointer">
-            <a class="nav-link" href="/furnis/products/menu">Furnis</a>
+            <a class="nav-link" href="/furnis/products/list">Furnis</a>
           </li>
           <li class="nav-item" style="cursor: pointer">
             <a class="nav-link" href="/furnis/logout">Logout</a>
@@ -101,34 +101,15 @@
               <div class="half_input">
                 <label>Product type</label>
                 <select class="product_collection" name="product_collection">
-                  <option value="furniture" selected>Furniture</option>
-                  <option value="sofa">Sofa</option>
-                  <option value="mirror">Mirror</option>
-                  <option value="chair">Chair</option>
-                  <option value="est">others</option>
+                  <option value="LIVINGROOM" selected>LIVINGROOM</option>
+                  <option value="BEDROOM">BEDROOM</option>
+                  <option value="KITCHEN">KITCHEN</option>
+                  <option value="OFFICE">OFFICE</option>
+                  <option value="Others">Others</option>
+
                 </select>
               </div>
 
-              <!-- <div class="half_input" id="product_size">
-                <label>Product Size</label>
-                <select class="product_size" name="product_size">
-                  <option value="small">Small</option>
-                  <option value="normal" selected>O'rtacha</option>
-                  <option value="large">Yirik</option>
-                  <option value="set">Set</option>
-                </select>
-              </div>
-
-              <div class="half_input" id="product_volume" style="display:none;">
-                <label>Ichimlik Hajmi</label>
-                <select class="product_volume" name="product_volume">
-                  <option value="0.5">0.5 litr</option>
-                  <option value="1" selected>1 litr</option>
-                  <option value="1.2">1.2 litr</option>
-                  <option value="1.5">1.5 litr</option>
-                  <option value="2">2 litr</option>
-                </select>
-              </div> -->
             </div>
 
             <div class="long_input">
@@ -183,13 +164,7 @@
 
         $(".product_collection").on("change", () => {
           const selected_value = $(".product_collection").val();
-          if (selected_value === "drink") {
-            $("#product_size").hide();
-            $("#product_volume").show();
-          } else {
-            $("#product_volume").hide();
-            $("#product_size").show();
-          }
+     
         })
 
         $(".hiding_btn").on("click", () => {
@@ -233,12 +208,12 @@
           product_left_count = $(".product_left_count").val(),
           product_collection = $(".product_collection").val(),
           product_description = $(".product_description").val(),
-          product_status = $(".product_price").val()
+          product_status = $(".product_status").val()
 
 
         if (market_mb_id == "" || product_name == "" || product_price == "" ||
           product_left_cnt == "" || product_collection == "" || product_description == "" || product_status == "") {
-          alert('hamma malumotlarni kiriting')
+          alert('Please enter all informations')
           return false
         } else {
           return true
@@ -254,7 +229,7 @@
               validImageTypes = ["image/jpg", "image/jpeg", "image/png"]
 
         if (!validImageTypes.includes(fileType)) {
-          alert('Iltimos ruhsat etilgan file type larini yuklang (jpg,jpeg,png)');
+          alert('Please upload  extensions  like this (jpg,jpeg,png)');
         } else {
           if (file) {
             let reader = new FileReader();

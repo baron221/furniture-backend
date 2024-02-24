@@ -1,9 +1,7 @@
 const mongoose = require("mongoose");
 const {
   product_status_enums,
-  product_size_enums,
-  //   product_volume_enums
-} = require("../lib/config");
+  product_collection_enums} = require("../lib/config");
 
 const Schema = mongoose.Schema;
 
@@ -13,14 +11,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    // product_collection: {
-    //   type: String,
-    //   required: true,
-    //   enum: {
-    //     values: product_collection_enums,
-    //     message: "{ VALUE } is not among enum values",
-    //   },
-    // },
+    product_collection: {
+      type: String,
+      required: true,
+      enum: {
+        values: product_collection_enums,
+        message: "{ VALUE } is not among enum values",
+      },
+    },
     product_status: {
       type: String,
       required: false,
@@ -43,15 +41,15 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    product_size: {
-      type: String,
-      default: "normal",
+    // product_size: {
+    //   type: String,
+    //   default: "normal",
   
-      enum: {
-        values: product_size_enums,
-        message: "{VALUE} is not among permitted enum values",
-      },
-    },
+    //   enum: {
+    //     values: product_size_enums,
+    //     message: "{VALUE} is not among permitted enum values",
+    //   },
+    // },
     // product_volume: {
     //   type: String,
     //   default: 1,
