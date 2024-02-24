@@ -41,26 +41,6 @@ const productSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    // product_size: {
-    //   type: String,
-    //   default: "normal",
-  
-    //   enum: {
-    //     values: product_size_enums,
-    //     message: "{VALUE} is not among permitted enum values",
-    //   },
-    // },
-    // product_volume: {
-    //   type: String,
-    //   default: 1,
-    //   required: function () {
-    //     return this.product_collection === "drink"
-    //   },
-    //   enum: {
-    //     values: product_volume_enums,
-    //     message: "{VALUE} is not among permitted enum values"
-    //   }
-    // },
     product_description: {
       type: String,
       required: true,

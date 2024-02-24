@@ -52,7 +52,6 @@ class Member {
   async getChosenMemberData(member, id) {
     try {
       id = shapeIntoMongooseObjectId(id);
-      console.log("member::", member);
 
       if (member) {
         await this.viewChosenItemByMember(member, id, "member");
@@ -80,13 +79,13 @@ class Member {
       assert.ok(isValid, Definer.general_err2);
 
       const doesExist = await view.checkViewExistence(view_ref_id);
-      console.log('doesExist:', doesExist);
+      console.log("doesExist:", doesExist);
 
-      if(!doesExist){
-        const result = await view.insertMemberView(view_ref_id , group_type);
-        assert.ok(result,Definer.general_err1)
+      if (!doesExist) {
+        const result = await view.insertMemberView(view_ref_id, group_type);
+        assert.ok(result, Definer.general_err1);
       }
-      return true
+      return true;
     } catch (err) {
       throw err;
     }
