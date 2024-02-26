@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
+const furnisController = require("./controllers/furnisController");
 
 /************************************************
  *                       REST API                                 *
@@ -40,4 +41,8 @@ router.get(
   memberController.retrieveAuthMember,
   productController.getChosenProduct
 );
+
+
+// Market related routers
+router.get("/markets" , memberController.retrieveAuthMember , furnisController.getMarkets)
 module.exports = router;

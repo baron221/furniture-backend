@@ -2,11 +2,25 @@ const Member = require("../models/Member");
 const Product = require("../models/Product");
 const Market = require("../models/Market")
 const Definer = require("../lib/mistake");
-
 const assert = require("assert");
 
-
 let furnisController = module.exports;
+
+furnisController.getMarkets =async  (req,res) =>{
+  try{
+    console.log("GET cont/getMarkets");
+    const data = req.query;
+    const market =  new Market();
+    result= await market.getFurnisData(req.member, data)
+    res.send({state:"success",data:result})
+
+  }catch(err){
+    console.log(`ERROR , cont/getMarkets , ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+}
+
+/**BSSR related Methods **/
 
 furnisController.home = async (req, res) => {
   try {

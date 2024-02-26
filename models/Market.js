@@ -34,8 +34,8 @@ class Market {
       }
       aggregationQuery.push({ $skip: (data.page - 1) * data.limit })
       aggregationQuery.push({ $limit: data.limit })
-      aggregationQuery.push(lookup_auth_member_liked(auth_mb_id));
-
+      // aggregationQuery.push(lookup_auth_member_liked(auth_mb_id));
+  
       const result = await this.memberModel.aggregate(aggregationQuery).exec()
       assert.ok(result, Definer.gereral_err1)
       return result
