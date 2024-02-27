@@ -1,31 +1,44 @@
 const Member = require("../models/Member");
 const Product = require("../models/Product");
-const Market = require("../models/Market")
+const Market = require("../models/Market");
 const Definer = require("../lib/mistake");
 const assert = require("assert");
 
 let furnisController = module.exports;
 
-furnisController.getMarkets =async  (req,res) =>{
-  try{
+furnisController.getMarkets = async (req, res) => {
+  try {
     console.log("GET cont/getMarkets");
     const data = req.query;
-    const market =  new Market();
-    result= await market.getFurnisData(req.member, data)
-    res.send({state:"success",data:result})
-
-  }catch(err){
+    const market = new Market();
+    result = await market.getFurnisData(req.member, data);
+    res.send({ state: "success", data: result });
+  } catch (err) {
     console.log(`ERROR , cont/getMarkets , ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
-}
+};
+
+furnisController.getChosenMarket = async (req, res) => {
+  try {
+    console.log("GET cont/getChosenMarket");
+    const id = req.params.id;
+    const market = new Market();
+    const result = await market.getChosenMarketData(req.member ,id)
+
+    res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log(`ERROR , cont/getChosenMarket , ${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
 
 /**BSSR related Methods **/
 
 furnisController.home = async (req, res) => {
   try {
     console.log("GET:cont/home");
-    res.render('home-page')
+    res.render("home-page");
   } catch (err) {
     console.log(`ERROR , cont/home , ${err.message}`);
     res.json({ state: "fail", message: err.message });
@@ -36,9 +49,9 @@ furnisController.getMyFurnisData = async (req, res) => {
   try {
     console.log("GET:cont/getMyFurnisData");
     const product = new Product();
-    
-    const data = await product.getAllProductsDataFurnis(res.locals.member)
-    res.render("furnis-list", {market_data:data});
+
+    const data = await product.getAllProductsDataFurnis(res.locals.member);
+    res.render("furnis-list", { market_data: data });
   } catch (err) {
     console.log(`ERROR , cont/getSignUpMyFurnis , ${err.message}`);
     res.redirect("/furnis");
@@ -58,15 +71,15 @@ furnisController.getSignUpMyFurnis = async (req, res) => {
 furnisController.signupProcess = async (req, res) => {
   try {
     console.log("POST cont.signup");
-    assert(req.file , Definer.general_err3);
+    assert(req.file, Definer.general_err3);
 
     let new_member = req.body;
-    new_member.mb_type="MARKET";
+    new_member.mb_type = "MARKET";
     new_member.mb_image = req.file.path;
 
     const member = new Member();
     const result = await member.signupData(new_member);
-    assert(result , Definer.general_err1);
+    assert(result, Definer.general_err1);
 
     req.session.member = result;
     res.redirect("/furnis/products/list");
@@ -106,69 +119,71 @@ furnisController.getLoginUpMyFurnis = async (req, res) => {
 };
 
 furnisController.logout = (req, res) => {
-
-  try{
+  try {
     console.log("GET cont.logout");
-    req.session.destroy(function(){
+    req.session.destroy(function () {
       res.redirect("/furnis");
-    })
-
-  }catch(err){
+    });
+  } catch (err) {
     console.log(`ERROR , cont/getLogoutMyFurnis , ${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
 
-furnisController.validateAuthRestaurant = (req , res,next) => {
-    if(req.session?.member?.mb_type === "MARKET"){
-        req.member = req.session.member;
-        next()
-    }else res.json({state:"fail" , error :"only authenticated members with market type"})
-}
- 
-furnisController.checkSession = (req,res ) =>{
-   if(req.session?.member){
-    res.json({state: 'succeed', data:req.session.member})
-   }else{
-    res.json({state:'fail' ,message:'You are not authenticated'})
-   }
-}
+furnisController.validateAuthRestaurant = (req, res, next) => {
+  if (req.session?.member?.mb_type === "MARKET") {
+    req.member = req.session.member;
+    next();
+  } else
+    res.json({
+      state: "fail",
+      error: "only authenticated members with market type",
+    });
+};
+
+furnisController.checkSession = (req, res) => {
+  if (req.session?.member) {
+    res.json({ state: "succeed", data: req.session.member });
+  } else {
+    res.json({ state: "fail", message: "You are not authenticated" });
+  }
+};
 
 furnisController.validateAdmin = (req, res, next) => {
   if (req.session?.member?.mb_type === "ADMIN") {
-    req.member = req.session.member
-    next()
+    req.member = req.session.member;
+    next();
   } else {
     const html = `<script>
    alert("ADMIN page permission denied")
    window.location.replace("/furnis")
-   </script>`
-    res.end(html)
+   </script>`;
+    res.end(html);
   }
-}
+};
 
 furnisController.getAllMarkets = async (req, res) => {
   try {
-    console.log("Post: cont/getAllMarkets")
+    console.log("Post: cont/getAllMarkets");
 
-    const furnis = new Market()
-    const furnis_data = await furnis.getAllMarketData()
+    const furnis = new Market();
+    const furnis_data = await furnis.getAllMarketData();
 
-    res.render("all-markets", { furnis_data: furnis_data })
+    res.render("all-markets", { furnis_data: furnis_data });
   } catch (err) {
-    console.log(`Error, cont/getAllRestaurants, ${err.message}`)
-    res.json({ state: "fail", message: err.message })
+    console.log(`Error, cont/getAllRestaurants, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
   }
-}
+};
 
 furnisController.updatemarketByAdmin = async (req, res) => {
   try {
-    console.log("Post: cont/updaterestaurantByAdmin")
-    const furnis = new Market()
-    const result = await furnis.updatemarketByAdminData(req.body)
-    await res.json({ state: "success", data: result })
+    console.log("Post: cont/updaterestaurantByAdmin");
+    const furnis = new Market();
+    const result = await furnis.updatemarketByAdminData(req.body);
+    await res.json({ state: "success", data: result });
   } catch (err) {
-    console.log(`Error, cont/updatemarketByAdminData, ${err.message}`)
-    res.json({ state: "fail", message: err.message })
+    console.log(`Error, cont/updatemarketByAdminData, ${err.message}`);
+    res.json({ state: "fail", message: err.message });
   }
-}
+};

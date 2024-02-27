@@ -45,4 +45,9 @@ router.get(
 
 // Market related routers
 router.get("/markets" , memberController.retrieveAuthMember , furnisController.getMarkets)
+
+router.get("/markets/:id",
+memberController.retrieveAuthMember,
+furnisController.getChosenMarket)
+
 module.exports = router;
