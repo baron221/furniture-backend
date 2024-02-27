@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema(
     product_status: {
       type: String,
       required: false,
-      default: "PAUSED",
+      default: "PROCESS",
       enum: {
         values: product_status_enums,
         message: "{VALUE} is not among permitted enum values",
