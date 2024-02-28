@@ -62,6 +62,8 @@ router.post(
   orderController.createOrder
 );
 
-router.get("/orders" , memberController.retrieveAuthMember , orderController.getMyOrders)
+router.get("/orders" , memberController.retrieveAuthMember , orderController.getMyOrders);
+router.post("/orders/edit" , memberController.retrieveAuthMember , orderController.editChosenOrder)
+
 
 module.exports = router;
