@@ -3,6 +3,7 @@ const router = express.Router();
 const memberController = require("./controllers/memberController");
 const productController = require("./controllers/productController");
 const furnisController = require("./controllers/furnisController");
+const orderController = require("./controllers/orderController");
 
 /************************************************
  *                       REST API                                 *
@@ -35,19 +36,29 @@ router.post(
   productController.getAllProducts
 );
 
-
 router.get(
   "/products/:id",
   memberController.retrieveAuthMember,
   productController.getChosenProduct
 );
 
-
 // Market related routers
-router.get("/markets" , memberController.retrieveAuthMember , furnisController.getMarkets)
+router.get(
+  "/markets",
+  memberController.retrieveAuthMember,
+  furnisController.getMarkets
+);
 
-router.get("/markets/:id",
-memberController.retrieveAuthMember,
-furnisController.getChosenMarket)
+router.get(
+  "/markets/:id",
+  memberController.retrieveAuthMember,
+  furnisController.getChosenMarket
+);
 
+//Order related routers
+router.post(
+  "/orders/create",
+  memberController.retrieveAuthMember,
+  orderController.createOrder
+);
 module.exports = router;
