@@ -43,7 +43,8 @@ class Community {
             localField:"mb_id",
             foreignField:"_id",
             as:"member_data"
-        }}
+        }},
+        {$unwind:"$member_data"}
       ]).exec();
       assert.ok(result, Definer.general_err1);
 
