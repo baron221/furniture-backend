@@ -30,3 +30,22 @@ communityController.createArticle = async (req, res) => {
     res.json({ state: "fail", message: err.message });
   }
 };
+
+communityController.getMemberArticles = async (req, res) => {
+  try {
+    console.log("GET:  cont / getMemberArticles");
+    const community = new Community();
+    const mb_id = req.query.mb_id !== "none" ? req.query.mb_id :req.member._id
+    assert.ok(mb_id, Definer.article_err1);
+    const result = await community.getMemberArticlesData(
+      req.member,
+      mb_id,
+      req.query
+    );
+    
+    res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log("POST:  cont / getMemberArticles");
+    res.json({ state: "fail", message: err.message });
+  }
+};
