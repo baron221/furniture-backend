@@ -11,7 +11,7 @@ communityController.imageInsertion = async (req, res) => {
     const image_url = req.file.path;
     res.json({ state: "success", data: image_url });
   } catch (err) {
-    console.log("POST:  cont / signup");
+    console.log(`ERROR:  cont / imageInsertion ,${err.message}`  );
     res.json({ state: "fail", message: err.message });
   }
 };
@@ -26,7 +26,7 @@ communityController.createArticle = async (req, res) => {
 
     res.json({ state: "success", data: result });
   } catch (err) {
-    console.log("POST:  cont / createArticle");
+    console.log(`ERROR:  cont / createArticle ,${err.message}`  );
     res.json({ state: "fail", message: err.message });
   }
 };
@@ -35,17 +35,32 @@ communityController.getMemberArticles = async (req, res) => {
   try {
     console.log("GET:  cont / getMemberArticles");
     const community = new Community();
-    const mb_id = req.query.mb_id !== "none" ? req.query.mb_id :req.member?._id
+    const mb_id =
+      req.query.mb_id !== "none" ? req.query.mb_id : req.member?._id;
     assert.ok(mb_id, Definer.article_err1);
     const result = await community.getMemberArticlesData(
       req.member,
       mb_id,
       req.query
     );
-    
+
     res.json({ state: "success", data: result });
   } catch (err) {
-    console.log("POST:  cont / getMemberArticles");
+    console.log(`ERROR:  cont / getMemberArticles ,${err.message}`  );
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+communityController.getArticles = async (req,res) => {
+  try {
+    console.log("GET:  cont / getArticles");
+    console.log("query:::", req.query);
+    const community = new Community();
+    const result =  await community.getArticlesData(req.member, req.query);
+
+    res.json({ state: "success", data: result});
+  } catch (err) {
+    console.log(`ERROR:  cont / getArticles ,${err.message}`  );
     res.json({ state: "fail", message: err.message });
   }
 };
