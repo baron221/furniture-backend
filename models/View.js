@@ -1,15 +1,14 @@
 const ViewModel = require("../schema/view.model");
 const MemberModel = require("../schema/member.model");
 const ProductModel = require("../schema/product.model");
-
-
+const CommunityModel = require("../schema/community.model");
 
 class View {
   constructor(mb_id) {
     this.viewModel = ViewModel;
     this.memberModel = MemberModel;
     this.productModel = ProductModel;
-
+    this.communityModel = CommunityModel;
     this.mb_id = mb_id;
   }
 
@@ -19,14 +18,19 @@ class View {
       switch (group_type) {
         case "member":
           result = await this.memberModel
-            .findById({ _id: view_ref_id, mb_status: "ACTIVE" })
+            .findOne({ _id: view_ref_id, mb_status: "ACTIVE" })
             .exec();
           break;
-          case "product":
-            result = await this.productModel
-              .findById({ _id: view_ref_id, mb_status: "PROCESS" })
-              .exec();
-            break;
+        case "product":
+          result = await this.productModel
+            .findOne({ _id: view_ref_id, product_status: "PROCESS" })
+            .exec();
+          break;
+        case "community":
+          result = await this.communityModel
+            .findOne({ _id: view_ref_id, art_status: "active" })
+            .exec();
+          break;
       }
       return !!result;
     } catch (err) {
@@ -58,11 +62,19 @@ class View {
             .findByIdAndUpdate({ _id: view_ref_id }, { $inc: { mb_views: 1 } })
             .exec();
           break;
-          case "product":
-            await this.productModel
-              .findByIdAndUpdate({ _id: view_ref_id }, { $inc: { product_views: 1 } })
-              .exec();
-            break;
+        case "product":
+          await this.productModel
+            .findByIdAndUpdate(
+              { _id: view_ref_id },
+              { $inc: { product_views: 1 } }
+            )
+            .exec();
+          break;
+        case "community":
+          await this.communityModel
+            .findByIdAndUpdate({ _id: view_ref_id }, { $inc: { art_views: 1 } })
+            .exec();
+          break;
       }
       return true;
     } catch (err) {
@@ -74,7 +86,7 @@ class View {
       const view = await this.viewModel
         .findOne({ mb_id: this.mb_id, view_ref_id: view_ref_id })
         .exec();
-        return view? true:false
+      return view ? true : false;
     } catch (err) {
       throw err;
     }

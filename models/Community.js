@@ -5,6 +5,7 @@ const {
   shapeIntoMongooseObjectId,
   board_id_enum_list,
 } = require("../lib/config");
+const Member = require("./Member");
 
 class Community {
   constructor() {
@@ -72,7 +73,7 @@ class Community {
       inquery.page *= 1;
       const sort = inquery.order
         ? { [`${inquery.order}`]: -1 }
-        : { "createdAt": -1 };
+        : { createdAt: -1 };
 
       const result = await this.communitySchema
         .aggregate([
@@ -92,7 +93,26 @@ class Community {
         ])
         .exec();
 
-      console.log("result:::", result);
+      assert.ok(result, Definer.article_err3);
+
+      return result;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getChosenArticleData(member, art_id) {
+    try {
+      art_id = shapeIntoMongooseObjectId(art_id);
+      //increase art views
+      if (member) {
+        const member_obj = new Member()
+        await member_obj.viewChosenItemByMember(member, art_id, "community");
+      }
+
+      const result = await this.communitySchema
+        .findById({ _id: art_id })
+        .exec();
       assert.ok(result, Definer.article_err3);
 
       return result;

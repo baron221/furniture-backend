@@ -11,7 +11,7 @@ communityController.imageInsertion = async (req, res) => {
     const image_url = req.file.path;
     res.json({ state: "success", data: image_url });
   } catch (err) {
-    console.log(`ERROR:  cont / imageInsertion ,${err.message}`  );
+    console.log(`ERROR:  cont / imageInsertion ,${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
@@ -26,7 +26,7 @@ communityController.createArticle = async (req, res) => {
 
     res.json({ state: "success", data: result });
   } catch (err) {
-    console.log(`ERROR:  cont / createArticle ,${err.message}`  );
+    console.log(`ERROR:  cont / createArticle ,${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
@@ -46,21 +46,34 @@ communityController.getMemberArticles = async (req, res) => {
 
     res.json({ state: "success", data: result });
   } catch (err) {
-    console.log(`ERROR:  cont / getMemberArticles ,${err.message}`  );
+    console.log(`ERROR:  cont / getMemberArticles ,${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
 
-communityController.getArticles = async (req,res) => {
+communityController.getArticles = async (req, res) => {
   try {
     console.log("GET:  cont / getArticles");
-    console.log("query:::", req.query);
     const community = new Community();
-    const result =  await community.getArticlesData(req.member, req.query);
+    const result = await community.getArticlesData(req.member, req.query);
 
-    res.json({ state: "success", data: result});
+    res.json({ state: "success", data: result });
   } catch (err) {
-    console.log(`ERROR:  cont / getArticles ,${err.message}`  );
+    console.log(`ERROR:  cont / getArticles ,${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+communityController.getChosenArticle = async (req, res) => {
+  try {
+    console.log("GET:  cont / getChosenArticle");
+    const art_id = req.params.art_id;
+    const community = new Community();
+    const result = await community.getChosenArticleData(req.member, art_id);
+
+    res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log(`ERROR:  cont / getChosenArticle ,${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
