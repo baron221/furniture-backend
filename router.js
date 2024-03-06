@@ -5,6 +5,7 @@ const productController = require("./controllers/productController");
 const furnisController = require("./controllers/furnisController");
 const orderController = require("./controllers/orderController");
 const communityController = require("./controllers/communityController");
+const followController = require("./controllers/followController");
 
 const uploader_community = require("./utils/upload-multer")("community");
 const uploader_member = require("./utils/upload-multer")("members");
@@ -108,4 +109,9 @@ router.get(
   communityController.getChosenArticle
 );
 
+router.post(
+  "/follow/subscribe",
+  memberController.retrieveAuthMember,
+  followController.subscribe
+);
 module.exports = router;
