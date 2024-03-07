@@ -48,7 +48,7 @@ class Follow {
     }
   }
 
-  async modifymemberFollowCounts(mb_id, type,modifier) {
+  async modifymemberFollowCounts(mb_id, type, modifier) {
     try {
       if (type === "follow_change") {
         await this.memberModel
@@ -66,6 +66,24 @@ class Follow {
           .exec();
       }
     } catch (err) {}
+  }
+
+  async unsubscribeData(member, data) {
+    try {
+      const subscriber_id = shapeIntoMongooseObjectId(member._id);
+      const follow_id = shapeIntoMongooseObjectId(data.mb_id);
+
+      const result = await this.followModel.findOneAndDelete({
+        follow_id: follow_id,
+        subscriber_id: subscriber_id,
+      });
+      assert.ok(result, Definer.general_err1);
+      await this.modifymemberFollowCounts(follow_id, "subscriber_change", -1);
+      await this.modifymemberFollowCounts(subscriber_id, "follow_change", -1);
+      return true;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
