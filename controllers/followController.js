@@ -35,11 +35,23 @@ followController.getMemberFollowings = async (req, res) => {
   try {
     console.log("GET:  cont / getMemberFollowings");
     const follow = new Follow();
-    const result =  await follow.getMemberFollowingsData(req.query);
-    res.json({ state: "success", data: result});
-
+    const result = await follow.getMemberFollowingsData(req.query);
+    res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`ERROR:  cont / getMemberFollowings ,${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+followController.getMemberFollowers = async (req, res) => {
+  try {
+    console.log("GET:  cont / getMemberFollowers");
+    const follow = new Follow();
+    const result = await follow.getMemberFollowersData(req.member, req.query);
+    res.json({ state: "success", data: result });
+
+  } catch (err) {
+    console.log(`ERROR:  cont / getMemberFollowers ,${err.message}`);
     res.json({ state: "fail", message: err.message });
   }
 };
