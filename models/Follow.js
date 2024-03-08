@@ -1,4 +1,7 @@
-const { shapeIntoMongooseObjectId, lookup_auth_member_following } = require("../lib/config");
+const {
+  shapeIntoMongooseObjectId,
+  lookup_auth_member_following,
+} = require("../lib/config");
 const Definer = require("../lib/mistake");
 const FollowModel = require("../schema/follow.model");
 const assert = require("assert");
@@ -138,8 +141,9 @@ class Follow {
         { $unwind: "$subscriber_member_data" },
       ];
       //following followed back to subscriber
-      if(member && member._id === inquery.mb_id){
-aggregateQuery.push(lookup_auth_member_following(follow_id))      }
+      if (member && member._id === inquery.mb_id) {
+        aggregateQuery.push(lookup_auth_member_following(follow_id, "follows"));
+      }
 
       const result = await this.followModel.aggregate(aggregateQuery).exec();
       assert.ok(result, Definer.follow_err3);
