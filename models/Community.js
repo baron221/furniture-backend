@@ -4,6 +4,7 @@ const assert = require("assert");
 const {
   shapeIntoMongooseObjectId,
   board_id_enum_list,
+  lookup_auth_member_liked,
 } = require("../lib/config");
 const Member = require("./Member");
 
@@ -52,6 +53,7 @@ class Community {
             },
           },
           { $unwind: "$member_data" },
+          lookup_auth_member_liked(auth_mb_id),
         ])
         .exec();
       assert.ok(result, Definer.general_err1);
@@ -90,6 +92,7 @@ class Community {
             },
           },
           { $unwind: "$member_data" },
+          lookup_auth_member_liked(auth_mb_id),
         ])
         .exec();
 
@@ -106,7 +109,7 @@ class Community {
       art_id = shapeIntoMongooseObjectId(art_id);
       //increase art views
       if (member) {
-        const member_obj = new Member()
+        const member_obj = new Member();
         await member_obj.viewChosenItemByMember(member, art_id, "community");
       }
 
