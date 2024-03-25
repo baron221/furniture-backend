@@ -3,6 +3,8 @@ const express = require("express");
 const app = express();
 const router = require("./router.js");
 const router_bssr = require("./router_bssr.js");
+const cors = require('cors');
+
 
 let session = require("express-session");
 const cookieParser = require("cookie-parser");
@@ -14,8 +16,13 @@ const store = new MongoDbStore({
 
 // 1 express ga kirib kelyatgan malumotlarga bogliq bolgan kodlar yoziladi. KIRISH kodlari
 app.use(express.static("public"));
+app.use("/uploads", express.static(__dirname + "/uploads"))
 app.use(express.json()); // kirib kelyatgan json formatdagi data ni objectga ogiradi
 app.use(express.urlencoded({ extended: true })); //html forumdan request qiladi
+app.use(cors({
+  credentials:true,
+  origin:true,
+}))
 app.use(cookieParser());
 //2 Session
 app.use(
