@@ -50,10 +50,7 @@ const memberSchema = new mongoose.Schema(
       type: String,
       required: false,
     },
-    mb_address: {
-      type: String,
-      required: false,
-    },
+
     mb_image: {
       type: String,
       required: false,

@@ -26,8 +26,17 @@ router.get(
   memberController.getChosenMember
 );
 
-router.post("/member-liken" , memberController.retrieveAuthMember , memberController.likeMemberChosen)
-
+router.post(
+  "/member-liken",
+  memberController.retrieveAuthMember,
+  memberController.likeMemberChosen
+);
+router.post(
+  "/member/update",
+  memberController.retrieveAuthMember,
+  uploader_member.single("mb_image"),
+  memberController.updateMember
+);
 //product related routers
 router.get("/menu", (req, res) => {
   res.send("You are in menu page");

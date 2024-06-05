@@ -89,6 +89,7 @@ class Order {
   }
 
   async getMyOrdersData(member, query) {
+
     try {
       const mb_id = shapeIntoMongooseObjectId(member._id),
         order_status = query.status.toUpperCase(),

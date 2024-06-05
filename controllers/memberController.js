@@ -128,3 +128,24 @@ memberController.likeMemberChosen = async (req, res) => {
     res.json({ state: "fail", message: err.message });
   }
 };
+
+memberController.updateMember = async (req, res) => {
+  try {
+    console.log("POST cont/ updateMember");
+    console.log(req.body);
+    console.log(req.file);
+    assert.ok(req.member, Definer.auth_err3);
+
+    const member = new Member();
+    const result = await member.updateMemberData(
+      req.member?._id,
+      req.body,
+      req.file
+    );
+
+    res.json({ state: "succeed", data: result });
+  } catch (err) {
+    console.log(`Error,cont/updateMember,${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
