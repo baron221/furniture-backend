@@ -193,7 +193,8 @@ body {
 
 .media-frame .upload_img_frame {
   position: relative;
-  width: 275px;
+  background: url('../images/uploader.svg') center no-repeat;
+  width: 375px;
   height: 93%;
   display: flex;
   border-radius: 15px;
