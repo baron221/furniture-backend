@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js",
+    "start:prod":"node server.js && NODE_ENV=production",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Baron",
